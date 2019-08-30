@@ -1,0 +1,18 @@
+{
+  "name": "noodlee-gateway",
+  "version": "1.0.0",
+  "description": "Noodlee System API Gateway",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "Dawid 'SkrzypMajster' Skrzypczyk",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "fastify": "^2.7.1",
+    "fastify-reply-from": "^1.1.0",
+    "k-fastify-gateway": "^2.8.0"
+  }
+}

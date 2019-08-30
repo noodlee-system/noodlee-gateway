@@ -1,0 +1,18 @@
+version: "3.5"
+
+services:
+  noodlee-gateway:
+    container_name: noodlee-gateway
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: noodlee-gateway
+    ports:
+      - "8080:8080"
+    networks:
+      - noodlee-system-network
+
+networks:
+  noodlee-system-network:
+    name: noodlee-system-network
+    driver: bridge
