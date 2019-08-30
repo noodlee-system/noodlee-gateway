@@ -1,17 +1,7 @@
 const fastify = require('fastify')({});
-const fs = require('fs');
 
 const gatewayPort = 8080;
-let routesArray = [];
-
-try {
-    const routesFile = fs.readFileSync('./routes.json', 'utf-8');
-
-    routesArray = JSON.parse(routesFile);
-} catch (error) {
-    console.error('Configuration file read error!');
-    process.exit(1);
-}
+const routesConfig = require('./routes.config');
 
 // Required plugin for HTTP requests proxy
 fastify.register(require('fastify-reply-from'))
@@ -19,20 +9,10 @@ fastify.register(require('fastify-reply-from'))
 // Gateway plugin
 fastify.register(require('k-fastify-gateway'), {
     middlewares: [require('cors')()],
-    routes: routesArray.map((item) => {
-        return {
-            prefix: item.prefix,
-            prefixRewrite: item.prefix,
-            target: item.target,
-            middlewares: [],
-            hooks: {
-                onResponse(req, reply, res) { reply.send(res) }
-            }
-        }
-    })
+    routes: routesConfig
 });
 
-console.log('Registered routes:', routesArray.map(route => route.prefix));
+console.log('Registered routes:', routesConfig.map(route => route.prefix));
 
 // start the gateway HTTP server
 fastify.listen(gatewayPort, '0.0.0.0', (err, address) => {
