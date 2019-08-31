@@ -10,6 +10,13 @@ const routesConfig = [
         middlewares: [],
         hooks: routesHooks
     },
+    {   // Courses Microservice
+        prefix: "/courses",
+        prefixRewrite: "/",
+        target: "http://courses-service:8080",
+        middlewares: [],
+        hooks: routesHooks
+    },
     {   // Authentication Microservice
         prefix: "/authentication",
         prefixRewrite: "/",
